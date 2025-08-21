@@ -1,11 +1,2 @@
-input {
-  width: 100%;
-}
+@import "tailwindcss";
 
-.kg-button {
-  min-width: 80px;
-}
-
-.kg-row {
-  margin: 10px 5px;
-}

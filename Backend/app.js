@@ -1,28 +1,36 @@
 // Core Module
 const path = require('path');
+const express = require('express');
 
 // External Module
+const mongoose = require('mongoose');
+const cors = require('cors');
 
-const MongoDBStore = require('connect-mongodb-session')(session);
-const { default: mongoose } = require('mongoose');
-const DB_PATH = "mongodb+srv://root:root@todo.u1asz.mongodb.net/airbnb?retryWrites=true&w=majority&appName=CompleteCoding";
+const DB_PATH = "mongodb+srv://root:root@todo.k2ocptn.mongodb.net/todo"; // added db name
 const errorsController = require('./controller/error');
-//Local Module
+
+// Local Module
+const todoItemsRouter = require('./routes/todoItemsRouter.js');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
-app.use(express.urlencoded());
-app.use(express.static(path.join(rootDir, 'public')));
+app.use("/api/todo", todoItemsRouter); // fixed missing /
+
 app.use(errorsController.pageNotFound);
 
-const PORT = 3003;
+const PORT = 3005;
 
-mongoose.connect(DB_PATH).then(() => {
-  console.log('Connected to Mongo');
-  app.listen(PORT, () => {
-    console.log(`Server running on address http://localhost:${PORT}`);
+mongoose.connect(DB_PATH)
+  .then(() => {
+    console.log('Connected to Mongo');
+    app.listen(PORT, () => {
+      console.log(`Server running on address http://localhost:${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.log('Error while connecting to Mongo: ', err);
   });
-}).catch(err => {
-  console.log('Error while connecting to Mongo: ', err);
-});

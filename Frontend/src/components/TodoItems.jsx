@@ -1,15 +1,18 @@
 import TodoItem from "./TodoItem";
-import styles from "./TodoItems.module.css";
 
-const TodoItems = ({ todoItems, onDeleteClick }) => {
+const TodoItems = ({ todoItems, onDeleteClick, onCompleteClick }) => {
   return (
-    <div className={styles.itemsContainer}>
+    <div className="flex flex-col gap-3 sm:gap-4">
       {todoItems.map((item) => (
         <TodoItem
+          key={item.id}
+          id={item.id}
           todoDate={item.dueDate}
           todoName={item.name}
+          completed={item.completed}
+          onCompleteClick={onCompleteClick}
           onDeleteClick={onDeleteClick}
-        ></TodoItem>
+        />
       ))}
     </div>
   );
