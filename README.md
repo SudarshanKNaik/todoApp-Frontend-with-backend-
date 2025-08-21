@@ -2,7 +2,7 @@
 
 A modern, responsive TODO application built with React frontend and Node.js backend, featuring a sleek dark theme and real-time task management capabilities.
 
-![TODO App Screenshot](https://via.placeholder.com/800x400/1e293b/ffffff?text=TODO+App+Screenshot)
+![TODO App Screenshot](images/todo.png)
 
 ## 🚀 Features
 
