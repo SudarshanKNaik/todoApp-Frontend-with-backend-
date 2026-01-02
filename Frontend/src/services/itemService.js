@@ -1,6 +1,8 @@
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3005";
+
 export const addItemToServer= async (task,date) => {
   try {
-    const response = await fetch("http://localhost:3005/api/todo", {
+    const response = await fetch(`${API_URL}/api/todo`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +35,7 @@ const mapItemFromServer = (item) => {
 
 export const getAllItemsFromServer = async () => {
   try {
-    const response = await fetch("http://localhost:3005/api/todo");
+    const response = await fetch(`${API_URL}/api/todo`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
@@ -47,7 +49,7 @@ export const getAllItemsFromServer = async () => {
 
 export const markItemCompletedOnServer = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3005/api/todo/${id}/completed`, {
+    const response = await fetch(`${API_URL}/api/todo/${id}/completed`, {
       method: "PUT",
     });
     if (!response.ok) {
@@ -63,7 +65,7 @@ export const markItemCompletedOnServer = async (id) => {
 
 export const deleteItemFromServer = async (id) => {
   try {
-    const response = await fetch(`http://localhost:3005/api/todo/${id}`, {
+    const response = await fetch(`${API_URL}/api/todo/${id}`, {
       method: "DELETE",
     });
     if (!response.ok) {

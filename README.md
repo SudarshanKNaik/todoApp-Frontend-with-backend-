@@ -125,7 +125,10 @@ Todo App(Fronted+Backend)/
    ```
    The frontend will run on `http://localhost:5173`
 
-3. **Open your browser**
+4. **Run on Minikube (Kubernetes local cluster)**
+   - See `k8s/README.md` for full instructions. A helper script is available at `scripts/deploy_minikube.sh` (Linux/macOS) and `scripts/deploy_minikube.ps1` (Windows).
+
+5. **Open your browser**
    Navigate to `http://localhost:5173` to use the application
 
 ## 📖 Usage

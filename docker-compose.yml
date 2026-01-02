@@ -1,0 +1,55 @@
+services:
+  mongodb:
+    image: mongo:6
+    container_name: todo-mongo
+    ports:
+      - "27018:27017"  # External port 27018 to avoid conflict with existing MongoDB
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=todo
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: todo-backend
+    ports:
+      - "3005:3005"  # Backend on port 3005
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/todo
+      - PORT=3005
+    depends_on:
+      - mongodb
+    networks:
+      - todo-network
+    restart: unless-stopped
+    volumes:
+      - ./Backend/uploads:/app/uploads  # Persist uploads directory
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:3005
+    container_name: todo-frontend
+    ports:
+      - "5174:80"  # Frontend on host port 5174 -> container 80
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+    restart: unless-stopped
+
+networks:
+  todo-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+
